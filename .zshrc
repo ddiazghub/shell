@@ -1,4 +1,4 @@
-# Enabl Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -77,7 +77,7 @@ zstyle ':omz:update' frequency 13
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-vi-mode zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(git zsh-vi-mode zsh-syntax-highlighting zsh-autosuggestions colored-man-pages colorize copyfile copybuffer copypath common-aliases dirhistory flutter pip rust)
 
 source $ZSH/oh-my-zsh.sh
 source /etc/zsh_command_not_found
@@ -122,10 +122,12 @@ alias flutterweb='flutter run -d web-server --web-port=8000'
 
 # Env variables
 export ANDROID_HOME="$HOME/android-sdk"
+export WINDOWS_HOME="/mnt/c/Users/neodd"
 export PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin"
 export PATH="$PATH:$ANDROID_HOME/platform-tools"
 export PATH="$HOME/flutter/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$WINDOWS_HOME/AppData/Local/Programs/Microsoft VS Code/bin:$PATH"
 
 # Key bindings
 bindkey "^[[A" history-beginning-search-backward
@@ -138,6 +140,10 @@ ssh-add ~/.ssh/github
 # Initialize the funny name program which helps with quick command correction
 eval $(thefuck --alias)
 eval $(thefuck --alias FUCK)
+
+if [ -n "`service docker status | grep not`" ]; then
+  sudo /usr/sbin/service docker start
+fi
 
 # Initialize powerlevel10k prompt. To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
